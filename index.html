@@ -1,0 +1,336 @@
+<html>
+<head>
+    <title>Button!</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Pacifico|Roboto:300,700");
+
+        :root {
+            --timing: cubic-bezier(0.645, 0.045, 0.355, 1);
+            --primary: #f4f7f5;
+        }
+
+        html,
+        body {
+            height: 100%;
+            background-color: var(--primary);
+        }
+
+        body {
+            display: grid;
+            place-items: center;
+            background: radial-gradient(#fff 30%, rgba(255, 255, 255, 0) 70%),
+            radial-gradient(var(--primary) 10%, rgba(244, 247, 245, 0) 20%);
+            background-size: 100% 100%, 10px 10px;
+            background-position: 0 0;
+        }
+
+        main {
+            display: grid;
+            place-items: center;
+            gap: 1em 0;
+        }
+
+        /* Heading hand effect */
+        .headingHand {
+            font-family: "Roboto", sans-serif;
+            font-weight: 300;
+            display: grid;
+            grid: auto / auto auto;
+        }
+
+        .headingHand > span {
+            margin-left: 0.25em;
+            font-weight: 700;
+        }
+
+        .headingHand > span {
+				margin-left: 0.25em;
+				font-weight: 700;
+			}
+
+			.headingHand span {
+				overflow: hidden;
+				display: inline-flex;
+				transition: 0.6s;
+			}
+			.headingHand > span,
+			.headingHand > span.on span {
+				transform: translateY(100%);
+				grid-area: 1 / 2;
+			}
+			.headingHand > span span,
+			.headingHand > span.on {
+				transform: translateY(-100%);
+			}
+
+			.headingHand.active span.off,
+			.headingHand.active span.off span,
+			.headingHand:not(.active) span.on,
+			.headingHand:not(.active) span.on span {
+				transform: none;
+			}
+        /* Heading eye effect */
+        .headingEye {
+            font-family: "Roboto", sans-serif;
+            font-weight: 300;
+            display: grid;
+            grid: auto / auto auto;
+        }
+
+        .headingEye > span {
+            margin-left: 0.25em;
+            font-weight: 700;
+        }
+
+        .headingEye > span {
+				margin-left: 0.25em;
+				font-weight: 700;
+			}
+
+			.headingEye span {
+				overflow: hidden;
+				display: inline-flex;
+				transition: 0.6s;
+			}
+			.headingEye > span,
+			.headingEye > span.on span {
+				transform: translateY(100%);
+				grid-area: 1 / 2;
+			}
+			.headingEye > span span,
+			.headingEye > span.on {
+				transform: translateY(-100%);
+			}
+
+			.headingEye.active span.off,
+			.headingEye.active span.off span,
+			.headingEye:not(.active) span.on,
+			.headingEye:not(.active) span.on span {
+				transform: none;
+			}
+        button {
+            --w: 6em;
+            --bg: rgb(var(--rgb));
+            --bga: rgba(var(--rgb), 0.4); /* Safari fix */
+            -webkit-appearance: none;
+            border: none;
+            font-size: 100%;
+            width: var(--w);
+            height: var(--w);
+            background: var(--bg);
+            box-shadow: 0 3px 12px 2px var(--bga);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.1s transform, 0.3s box-shadow;
+            will-change: transform, box-shadow;
+            backface-visibility: hidden;
+        }
+
+        button > * {
+            pointer-events: none;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        button:after {
+            --bg: rgb(var(--rgb));
+            content: "";
+            position: absolute;
+            top: -15%;
+            left: -15%;
+            width: 200%;
+            height: 200%;
+            background: var(--bg);
+            border-radius: inherit;
+            transform: translate(5%, 5%) scale(0.03);
+            pointer-events: none;
+        }
+
+        button.animating:after {
+            animation: c 0.5s cubic-bezier(0.5, 0, 0.5, 1) backwards;
+        }
+
+        button.active,
+        button:not(.active):after {
+            --rgb: 64, 227, 120;
+        }
+
+        button:not(.active),
+        button.active:after {
+            --rgb: 229, 55, 94;
+        }
+
+        @keyframes c {
+            to {
+                transform: none;
+            }
+        }
+
+        button span {
+            display: inline-block;
+            position: relative;
+            margin-top: 5px;
+        }
+
+        button b {
+            --w: 7px;
+            overflow: hidden;
+            border-radius: var(--w);
+            display: grid;
+            width: var(--w);
+            height: 35px;
+            top: 0;
+            left: 50%;
+            position: absolute;
+            transform: translateX(-50%);
+            z-index: 3;
+            will-change: transform;
+        }
+
+        button b:before {
+            content: "";
+            background: #fff;
+            width: 100%;
+            height: 100%;
+            border-radius: var(--w);
+            transform: translateY(-15px);
+            transition-timing-function: var(--timing);
+            transition: 0.5s;
+        }
+
+        button.active b:before {
+            transform: translateY(12px);
+            transition-delay: 0.27s;
+            transition-timing-function: cubic-bezier(0.25, 0.25, 0.25, 1.25);
+        }
+
+        button svg {
+            --dash: 190;
+            stroke-linecap: round;
+            stroke-dasharray: var(--dash);
+            stroke-dashoffset: var(--dash);
+            width: 46px;
+            height: 46px;
+            transform: scaleX(-1) rotate(-89deg);
+            transition: 0.4s;
+            transition-timing-function: var(--timing);
+            margin: auto;
+            position: relative;
+            z-index: 1;
+            will-change: transform, stroke-dashoffset;
+        }
+
+        button:not(.active) svg {
+            stroke-dashoffset: 40;
+            transform: scaleX(-1) rotate(-52deg);
+            transition: 0.5s 0.25s;
+        }
+    </style>
+</head>
+<main>
+    <h1 class="headingEye">
+        Click to turn eye
+			<span class="on">
+				<span> on </span>
+			</span>
+			<span class="off">
+				<span> off </span>
+			</span>
+    </h1>
+    <button type="button" class="btn" id="eye">
+    <span>
+      <b></b>
+      <svg viewBox="-5.5 -5.5 71 71" id="circle">
+        <circle
+                cx="30"
+                cy="30"
+                r="30"
+                stroke="white"
+                stroke-width="11"
+                fill="transparent"
+        ></circle>
+      </svg>
+    </span>
+    </button>
+
+    <h1 class="headingHand">
+        Click to turn hand
+			<span class="on">
+				<span> on </span>
+			</span>
+			<span class="off">
+				<span> off </span>
+			</span>
+    </h1>
+    <button type="button" class="btn" id="hand">
+    <span>
+      <b></b>
+      <svg viewBox="-5.5 -5.5 71 71" id="circle">
+        <circle
+                cx="30"
+                cy="30"
+                r="30"
+                stroke="white"
+                stroke-width="11"
+                fill="transparent"
+        ></circle>
+      </svg>
+    </span>
+    </button>
+</main>
+<script>
+    const eyeBtn = document.querySelector("#eye");
+    const handBtn = document.querySelector("#hand");
+    const headingEye = document.querySelector(".headingEye");
+    const headingHand = document.querySelector(".headingHand");
+
+    let eyeActive = false;
+    let handActive = false;
+
+    eyeBtn.onclick = ()=>{
+        if(!handActive){
+            let className = ""
+            if(!eyeActive){
+                //activate
+                className = " active"
+                fetch("/turn_eye_on")
+                console.log("Eye on")
+            }else{
+                //disable
+                fetch("/turn_eye_off")
+                console.log("Eye off")
+            }
+            //toggle animation
+            eyeActive = !eyeActive
+            eyeBtn.className = "btn" + className
+            headingEye.className = "headingEye" + className
+        }
+    }
+
+    handBtn.onclick = ()=>{
+        if(!eyeActive){
+            let className = ""
+            if(!handActive){
+                //activate
+                className = " active"
+                fetch("/turn_hand_on")
+                console.log("Hand on")
+            }else{
+                //disable
+                fetch("/turn_hand_off")
+                console.log("Hand off")
+            }
+            handActive = !handActive
+            handBtn.className = "btn" + className
+            headingHand.className = "headingHand" + className
+        }
+    }
+</script>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .container h2 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="password"] {
+      width: 98%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-group input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input id="username" name="username" required type="text">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input id="password" name="password" required type="password">
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Login">
+        </div>
+        <p id="error" style="color: red;"></p>
+    </form>
+</div>
+<script>
+     const loginForm = document.querySelector('#loginForm');
+     loginForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const username = loginForm.username.value;
+      const password = loginForm.password.value;
+      const requestBody = { username, password };
+
+     //its a promise js
+
+      fetch('/your_login_endpoint', {
+                  method: 'POST',
+                  headers: {'Content-Type': 'application/json'},
+                  body: JSON.stringify(requestBody)}).then(response => {
+      if (response.status === 200) {
+        console.log('Login successful');
+        window.location.href = 'index.html';
+      } else if (response.status === 401) {
+        console.log('Invalid username or password');
+        document.getElementById("error").innerHTML = "Invalid username or password.";
+      } else {
+        console.log('An error occurred');
+        // Handle other response statuses if needed
+      }
+    })
+    .catch(e => console.log('An error occurred:', e));
+    });
+
+
+</script>
+</body>
+</html>
